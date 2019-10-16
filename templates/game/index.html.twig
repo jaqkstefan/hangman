@@ -3,16 +3,18 @@
 {% block title parent() ~ ' | Let\'s play!' %}
 
 {% block content %}
+    {{ dump(game) }}
     <h2>Guess the mysterious word</h2>
 
     <p class="attempts">
-        You still have 11 remaining attempts.
+        You still have {{ game.remainingAttempts }} remaining attempts.
     </p>
 
     <ul class="word_letters">
-        {% for i in 1..8 %}
-            <li class="letter hidden">
-                ?
+        {% for letter in game.wordLetters %}
+            {% set letter_found = game.letterFound(letter) %}
+            <li class="letter {{ not letter_found ? 'hidden' }}">
+                {{ letter_found ? letter : '?' }}
             </li>
         {% endfor %}
     </ul>
@@ -20,7 +22,7 @@
     <br class="clearfix" />
 
     <p class="attempts">
-        <a href="/game/reset">Reset the game</a>
+        <a href="{{ path('app_game_reset') }}">Reset the game</a>
     </p>
 
     <br class="clearfix" />
@@ -30,7 +32,7 @@
     <ul>
         {% for letter in 'A'..'Z' %}
             <li class="letter">
-                <a href="/game/letter/{{ letter }}">
+                <a href="{{ path('app_game_play_letter', {'letter': letter}) }}">
                     {{ letter }}
                 </a>
             </li>
@@ -39,7 +41,7 @@
 
     <h2>Try a word</h2>
 
-    <form action="/game/word" method="post">
+    <form action="{{ path('app_game_play_word') }}" method="post">
         <p>
             <label for="word">Word:</label>
             <input type="text" id="word" name="word"/>
