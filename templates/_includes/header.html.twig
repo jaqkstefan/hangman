@@ -13,7 +13,11 @@
                 <a href="/signup">Register</a>
             </li>
             <li>
-                <a href="/signin">Login</a>
+                {% if app.user %}
+                    <a href="{{ path('app_security_logout') }}">Logout</a>
+                {% else %}
+                    <a href="{{ path('app_main_index') }}">Login</a>
+                {% endif %}
             </li>
             <li>
                 <a href="{{ path('app_main_contact') }}">Contact</a>

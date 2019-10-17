@@ -7,15 +7,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class MainController extends AbstractController
 {
     /**
      * @Route("/", name="app_main_index", methods={"GET"})
      */
-    public function index(): Response
+    public function index(AuthenticationUtils $authenticationUtils): Response
     {
-        return $this->render('main/index.html.twig');
+        return $this->render('main/index.html.twig', [
+            'last_username' => $authenticationUtils->getLastUsername(),
+            'last_error' => $authenticationUtils->getLastAuthenticationError(),
+        ]);
     }
 
     /**

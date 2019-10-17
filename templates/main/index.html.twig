@@ -5,12 +5,16 @@
 {% block content %}
     <h2>{{ 'Access your player account'|trans }}</h2>
 
-    <form action="/login_check" method="post">
+    {% if last_error %}
+        <div class="alert alert-danger">{{ last_error.messageKey|trans(last_error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <form action="{{ path('app_security_login_check') }}" method="post">
         <label for="username">{{ 'Username:'|trans }}</label>
-        <input type="text" id="username" name="my_login" value="" />
+        <input type="text" id="username" name="player_login" value="{{ last_username }}" />
 
         <label for="password">{{ 'Password:'|trans }}</label>
-        <input type="password" id="password" name="my_secret" />
+        <input type="password" id="password" name="player_secret" />
 
         <button type="submit">{{ 'login'|trans }}</button>
     </form>
