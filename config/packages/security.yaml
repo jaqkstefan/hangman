@@ -10,7 +10,10 @@ security:
                 users:
                     toto:
                         password: '$argon2id$v=19$m=65536,t=4,p=1$4alQx+LKD+tmr4tLei1+gA$Lvq+lkM1UuTs4uL+57Sp/iC53dGjkT4NHIZNzR9hHAQ'
-                        roles: TOTO
+                        roles: ROLE_PLAYER
+                    tata:
+                        password: '$argon2id$v=19$m=65536,t=4,p=1$4alQx+LKD+tmr4tLei1+gA$Lvq+lkM1UuTs4uL+57Sp/iC53dGjkT4NHIZNzR9hHAQ'
+                        roles: ROLE_TATA
 
     firewalls:
         dev:
@@ -39,5 +42,5 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: '^/(%locales_regex%)/game', roles: ROLE_PLAYER }
         # - { path: ^/profile, roles: ROLE_USER }

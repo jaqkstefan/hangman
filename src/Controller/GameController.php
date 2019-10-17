@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Game\GameRunner;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/game")
+ * @IsGranted("ROLE_PLAYER", statusCode=404)
  */
 class GameController extends AbstractController
 {

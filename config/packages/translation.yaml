@@ -1,5 +1,6 @@
 parameters:
     locale: en
+    locales_regex: en|fr
 
 framework:
     default_locale: '%locale%'
