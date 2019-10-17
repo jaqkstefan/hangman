@@ -1,3 +1,9 @@
 #index:
 #    path: /hello
 #    controller: App\Controller\HelloController::index
+
+app_home:
+    path: /
+    controller: FrameworkBundle:Redirect:redirect
+    defaults:
+        route: app_main_index
