@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Form\Type\ContactType;
+use App\Form\Type\RegistrationType;
+use App\Player\PlayerManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,6 +13,13 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class MainController extends AbstractController
 {
+    public static function getSubscribedServices()
+    {
+        return array_merge(parent::getSubscribedServices(), [
+            PlayerManager::class,
+        ]);
+    }
+
     /**
      * @Route("/", name="app_main_index", methods={"GET"})
      */
@@ -42,6 +51,28 @@ class MainController extends AbstractController
 
         return $this->render('main/contact.html.twig', [
             'contact_form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/register", name="app_main_register", methods={"GET", "POST"})
+     */
+    public function register(Request $request): Response
+    {
+        $form = $this->createForm(RegistrationType::class)
+            ->handleRequest($request)
+        ;
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->get(PlayerManager::class)->register($form->getData());
+
+            $this->addFlash('success', 'Thank you for registering! Now just sign in and play :)');
+
+            return $this->redirectToRoute('app_main_index');
+        }
+
+        return $this->render('main/register.html.twig', [
+            'registration_form' => $form->createView(),
         ]);
     }
 }
