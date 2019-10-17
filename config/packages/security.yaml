@@ -27,6 +27,11 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
+        fragments:
+            pattern: '_fragment'
+            security: false
+
         main:
             pattern: ^/
             anonymous: true

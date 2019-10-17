@@ -1,0 +1,13 @@
+<h3>Last Games</h3>
+<div class="date-list">
+    <ul class="list date-list">
+        {% for last_game in last_games %}
+            <li class="first"><span class="date">{{ last_game.date }}</span> <a href="{{ last_game.href }}">{{ last_game.text }}</a></li>
+        {% endfor %}
+
+        {#            <li><span class="date">Jan 7</span> <a href="#">Neque dolor eget</a></li>#}
+        {#            <li><span class="date">Jan 1</span> <a href="#">Sollicitudin interdum</a></li>#}
+        {#            <li class="last"><span class="date">Dec 26</span> <a href="#">Varius dignissim</a></li>#}
+
+    </ul>
+</div>
